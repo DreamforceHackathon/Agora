@@ -9,21 +9,21 @@
       </div>
 
       <div ng-repeat="topic in topics">
-        <a class="topic" href="#/{{$routeParams.category}}/{{topic.id}}">
+        <a class="topic" ng-click="leftTransition(topic.Topic_ID__c);">
           <div class="list-group-item media">
             <div class="pull-right">
-              <i class="fa fa-gamepad feature-icon text-primary"></i>
+              <!-- <i class="fa fa-gamepad feature-icon text-primary"></i> -->
             </div>
             <div class="media-body">
-                <h3 class="media-heading">{{topic.title}}</h3>
-                {{topic.body}}
+                <h3 class="media-heading">{{topic.Name}}</h3>
+                {{topic.Topic_Body__c}}
             </div>
           </div>
         </a>
       </div>
 
       <div content-for="bottomButton">
-        <a href="http://mobileangularui.com/" class="btn btn-navbar"><i class="fa fa-plus fa-navbar"></i> Add Topic</a>
+        <!-- <a href="http://mobileangularui.com/" class="btn btn-navbar"><i class="fa fa-plus fa-navbar"></i> Add Topic</a> -->
       </div>
     </div>
 

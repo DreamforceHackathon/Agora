@@ -1,16 +1,7 @@
 <!DOCTYPE html>
-<!--
-  ** NOTE **
-
-  Run `grunt connect` then
-  navigate to http://localhost:3000/demo
-  to see this page in browser
-
-  -->
 <html>
   <head>
     <meta charset="utf-8" />
-    <!-- <base href="/demo/" /> -->
     <title>Agora</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -24,8 +15,9 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-touch.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-animate.min.js"></script>
     <script src="/js/mobile-angular-ui.min.js"></script>
-    <script src="/js/demo.js"></script>
+    <script src="/js/demo.js"></script>   
   </head>
   <body ng-app="Agora" ng-controller="MainController">
 
@@ -63,22 +55,13 @@
 
       <!-- App Body -->
       <div class="app-body" ng-class="{loading: loading}">
+
         <div ng-show="loading" class="app-content-loading">
           <i class="fa fa-spinner fa-spin loading-spinner"></i>
         </div>
-
-        <ng-view class="app-content" ng-hide="loading"></ng-view>
+        <ng-view class="app-content {{animationClass}}" ng-hide="loading"></ng-view>
       </div>
 
     </div><!-- ~ .app -->
-    <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-48036416-1', 'mobileangularui.com');
-       ga('send', 'pageview');
-     </script>
   </body>
 </html>

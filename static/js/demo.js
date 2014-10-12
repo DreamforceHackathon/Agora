@@ -1,6 +1,7 @@
 var app = angular.module('Agora', [
   "ngRoute",
   "ngTouch",
+  "ngAnimate",
   "mobile-angular-ui"
 ]);
 
@@ -12,15 +13,9 @@ app.config(function($routeProvider, $locationProvider) {
   $routeProvider.when('/register', {templateUrl: "register.html"}); 
 });
 
-app.service('analytics', [
-  '$rootScope', '$window', '$location', function($rootScope, $window, $location) {
-    var send = function(evt, data) {
-      ga('send', evt, data);
-    }
-  }
-]);
+app.controller('MainController', function($rootScope, $scope, $location, $http){
 
-app.controller('MainController', function($rootScope, $scope, analytics){
+  $rootScope.animationClass = "slide-left";
 
   $rootScope.$on("$routeChangeStart", function(){
     $rootScope.loading = true;
@@ -30,62 +25,80 @@ app.controller('MainController', function($rootScope, $scope, analytics){
     $rootScope.loading = false;
   });
 
-  var scrollItems = [];
-
-  for (var i=1; i<=100; i++) {
-    scrollItems.push("Item " + i);
-  }
-
-  $scope.scrollItems = scrollItems;
-  $scope.invoice = {payed: true};
-  
-  $scope.userAgent =  navigator.userAgent;
   $scope.chatUsers = [
     { name: "Carlos  Flowers", online: true },
     { name: "Byron Taylor", online: true },
-    { name: "Jana  Terry", online: true },
-    { name: "Darryl  Stone", online: true },
-    { name: "Fannie  Carlson", online: true },
-    { name: "Holly Nguyen", online: true }
   ];
 
-  $scope.categories = [
-    {title: "Politics"},
-    {title: "Games"},
-    {title: "Stuff"}
-  ];
-
+  $http.get('http://beautiful-mermaids.herokuapp.com/agora/api/v1.0/categories').
+  success(function(data, status, headers, config) {
+    $scope.categories = data.categories;
+  }).
+  error(function(data, status, headers, config) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  });
 });
 
-app.controller('topicControl', function($scope, $routeParams){
+app.controller('topicControl', function($rootScope, $scope, $routeParams, $location, $http){
 
   if($routeParams.category != undefined){
     $scope.$routeParams = $routeParams;
   }
 
   else{
-    $scope.$routeParams = {category: "All"};
+    $scope.$routeParams = {category: "Local"};
   }
 
-  $scope.topics = [
-    {id: 1234124124, title: "WASSUP", body:"Glen is a dingus"},
-    {id: 111111111, title: "WASSUP2", body:"Glen is a dingus2"}
-  ];
+  $http.get('http://beautiful-mermaids.herokuapp.com/agora/api/v1.0/topics/'+ $scope.$routeParams.category).
+    success(function(data, status, headers, config) {
+      $scope.topics = data.topics;
+    }).
+    error(function(data, status, headers, config) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+  });
+
+  $scope.leftTransition = function(path) {
+    $rootScope.animationClass = "slide-left";
+    $location.path($routeParams.category+'/'+path);
+  }
 });
 
-app.controller('postControl', function($scope, $routeParams){
+app.controller('postControl', function($rootScope, $scope, $routeParams, $location, $http){
 
   $scope.$routeParams = $routeParams;
-  $scope.posts = [
-    {user: "Kenneth", body:"Glen is a dingus", position: "against"},
-    {user: "Glen", body:"Glen is a dingus2", position: "for"},
-    {user: "Kenneth", body:"Glen isfasdf a dingus", position: "against"},
-    {user: "Glen", body:"Glen is a asdfasdingus2", position: "for"},
-    {user: "Kenneth", body:"Glen isasdfasdf a dingus", position: "against"},
-    {user: "Glen", body:"Glen is a dingus2", position: "for"},
-    {user: "Kenneth", body:"Glen asdfasfdis a dingus", position: "against"},
-    {user: "Glen", body:"Glen is asdfasfa dingus2", position: "against"},
-    {user: "Kenneth", body:"Glen is a dingus", position: "for"},
-    {user: "Glen", body:"Glen iasdfasdfs a dingus2", position: "against"}
-  ];
+
+  $scope.backToCat = function() {
+    $rootScope.animationClass = "slide-right";
+    $location.path($routeParams.category);
+  }
+
+  $http.get('http://beautiful-mermaids.herokuapp.com/agora/api/v1.0/topic/'+ $scope.$routeParams.topic).
+    success(function(data, status, headers, config) {
+      $scope.posts = data.topic[0].posts;
+      $scope.topicName = data.topic[0].Name;
+      $scope.topicBody = data.topic[0].Topic_Body__c;
+      $scope.uglyTopicId = data.topic[0].Id;
+    }).
+    error(function(data, status, headers, config) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+  });
+
+  $scope.sendPost = function() {
+
+    var data = {
+      Topic_ID__c: $scope.uglyTopicId, 
+      Post_User__c: "003o000000BTVrE",
+      Position__c: $scope.position, 
+      Post_Body__c: $scope.newPostBody
+    };
+
+    console.log(data);
+
+    $.post('http://beautiful-mermaids.herokuapp.com/agora/api/v1.0/newpost', data, function(response){
+      console.log(response);
+    });
+  }
 });
