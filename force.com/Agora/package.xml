@@ -6,6 +6,7 @@
         <name>CustomApplication</name>
     </types>
     <types>
+        <members>Topic__c.Category__c</members>
         <members>Topic__c.Topic_Body__c</members>
         <members>Topic__c.Topic_ID__c</members>
         <members>Topic__c.User__c</members>
