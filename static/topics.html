@@ -1,0 +1,31 @@
+<div class="scrollable">  
+  <div class="scrollable-content">
+
+    <div class="list-group" ng-controller="topicControl">
+      <div class="list-group-item">
+        <h1>{{$routeParams.category}}<br/>
+        <!-- <small>This is Beautiful Mermaids.</small> -->
+        </h1>
+      </div>
+
+      <div ng-repeat="topic in topics">
+        <a class="topic" href="#/{{$routeParams.category}}/{{topic.id}}">
+          <div class="list-group-item media">
+            <div class="pull-right">
+              <i class="fa fa-gamepad feature-icon text-primary"></i>
+            </div>
+            <div class="media-body">
+                <h3 class="media-heading">{{topic.title}}</h3>
+                {{topic.body}}
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div content-for="bottomButton">
+        <a href="http://mobileangularui.com/" class="btn btn-navbar"><i class="fa fa-plus fa-navbar"></i> Add Topic</a>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="scrollable"> 
+  <div class="scrollable-content">
+    <div class="section container-fluid">
+
+      <h3 class="page-header">Is Glen a dingus?</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, commodi, corporis, dicta cupiditate officiis nostrum recusandae aperiam quia dolores amet architecto laudantium alias in omnis perferendis. Ullam asperiores dolorum nobis.</p>
+
+      <div class="btn-group justified nav-tabs" id="post-btn-group">
+        <a class="btn btn-default for-tab"
+           href="#Tab1"
+           toggle="on"
+           active-class="active"><i class="fa fa-check"></i>
+        </a>
+        
+        <a class="btn btn-default against-tab"
+           href="#Tab2"
+           toggle="on"
+           active-class="active"><i class="fa fa-times"></i>
+        </a>
+      </div>
+
+      <div class="tab-content" ng-controller="postControl">
+        <div class="tab-pane" 
+            toggleable 
+            active-class="active" 
+            default="active" 
+            id="Tab1" 
+            exclusion-group="myTabs">
+
+            <div class="scrollable-content container-fluid section">
+              <div class="panel-group">
+
+                <div class="panel panel-default post" ng-repeat="post in posts | filter: {position: 'for'}">
+                  <div class="panel-heading">
+                    <p class="panel-title">
+                      {{post.user}} <span class="vote-buttons"><a href=""><i class="fa fa-chevron-up"></i></a> <a href=""><i class="fa fa-chevron-down"></i></a></span>
+                    </p>
+                  </div>
+
+                  <div class="panel-body">
+                    {{post.body}}                     
+                  </div>
+                </div>
+
+              </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" 
+            toggleable 
+            active-class="active" 
+            id="Tab2"
+            exclusion-group="myTabs">
+            <div class="scrollable-content container-fluid section">
+              <div class="panel-group">
+
+                <div class="panel panel-default post" ng-repeat="post in posts | filter: {position: 'against'}">
+                  <div class="panel-heading">
+                    <p class="panel-title">
+                      {{post.user}} <span class="vote-buttons"><a href=""><i class="fa fa-chevron-up"></i></a> <a href=""><i class="fa fa-chevron-down"></i></a></span>
+                    </p>
+                  </div>
+
+                  <div class="panel-body">
+                    {{post.body}}                      
+                  </div>
+                </div>
+
+              </div>
+        </div>
+
+        <div content-for="navbarLeft">
+          <a href="#/{{$routeParams.category}}" class="btn btn-navbar sidebar-toggle">
+            <i class="fa fa-arrow-left"></i>
+          </a>
+        </div>
+
+        <div content-for="bottomButton">
+          <a href="http://mobileangularui.com/" class="btn btn-navbar"><i class="fa fa-plus fa-navbar"></i> Add Post</a>
+        </div>
+
+    </div>
+  </div>
+</div>
