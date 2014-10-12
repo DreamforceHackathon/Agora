@@ -65,7 +65,7 @@ app.controller('topicControl', function($rootScope, $scope, $routeParams, $locat
   }
 });
 
-app.controller('postControl', function($rootScope, $scope, $routeParams, $location, $http){
+app.controller('postControl', function($rootScope, $scope, $routeParams, $location, $http, $route){
 
   $scope.$routeParams = $routeParams;
 
@@ -87,6 +87,7 @@ app.controller('postControl', function($rootScope, $scope, $routeParams, $locati
   });
 
   $scope.sendPost = function() {
+    console.log(" I got here!");
 
     var data = {
       Topic_ID__c: $scope.uglyTopicId, 
@@ -97,8 +98,31 @@ app.controller('postControl', function($rootScope, $scope, $routeParams, $locati
 
     console.log(data);
 
-    $.post('http://beautiful-mermaids.herokuapp.com/agora/api/v1.0/newpost', data, function(response){
-      console.log(response);
-    });
+    $http.post('http://beautiful-mermaids.herokuapp.com/agora/api/v1.0/newpost', JSON.stringify(data)).
+      success(function(data, status, headers, config) {
+        $route.reload();
+      }).
+      error(function(data, status, headers, config) {
+      });
+  }
+
+  $scope.upvote = function(post) {
+    var data = {"short ID":post.Post_ID__c, "long ID": post.Id};
+
+    $http.post('http://beautiful-mermaids.herokuapp.com/agora/api/v1.0/upvote', JSON.stringify(data)).
+      success(function(data, status, headers, config) {
+      }).
+      error(function(data, status, headers, config) {
+      });
+  }
+
+  $scope.downvote = function(post) {
+    var data = {"short ID":post.Post_ID__c, "long ID": post.Id};
+
+    $http.post('http://beautiful-mermaids.herokuapp.com/agora/api/v1.0/downvote', JSON.stringify(data)).
+      success(function(data, status, headers, config) {
+      }).
+      error(function(data, status, headers, config) {
+      });
   }
 });

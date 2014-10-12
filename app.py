@@ -20,17 +20,9 @@ payload = {'grant_type': 'password', 'client_id': '3MVG9xOCXq4ID1uHzDUJaB8LxhY3T
 r = requests.post(REQUEST_ENDPOINT, headers={'Content-Type': 'application/x-www-form-urlencoded'}, data=payload)
 ACCESS_TOKEN = eval(r.content)['access_token']
 
-#sf = Salesforce(instance='https://na17.salesforce.com/', session_id=ACCESS_TOKEN)
 sf = Salesforce(username='tlim007@ucr.edu', password='13791LOM', security_token='eYeASGmMyXehAwMmCqqh6ZSk9')
-#g = sf.Topic__c.describe()
-#print type(g)
-#d = dict(g)
-#print type(d)
 
 listToDict = lambda lst: {i: lst[i] for i in range(len(lst))}
-
-#print type(jsonify(g))
-#print g[u'fields']
 
 @app.route('/')
 def root():
@@ -39,7 +31,6 @@ def root():
 # returns the categories
 @app.route('/agora/api/v1.0/categories', methods=['GET'])
 def get_category():
-    #ls = {0: 'Local', 1: 'State', 2: 'National', 3: 'International'}
     categories = ['Local', 'State', 'National', 'International']
     return jsonify(categories=categories)
 
@@ -60,7 +51,7 @@ def get_topic(topic_id):
         
     mainList = topicODict['records']
     
-    postQuery = "SELECT Post_Body__c, CreatedDate, UpVote__c, DownVote__c, Netvalue__c, Post_User__c, id, Post_ID__c, Position__c FROM Post__c WHERE Topic_ID__c = '%s' ORDER BY Netvalue__c DESC" %ID
+    postQuery = "SELECT Post_Body__c, CreatedDate, UpVote__c, DownVote__c, Netvalue__c, Post_User__c, id, Post_ID__c, Position__c, Username__c FROM Post__c WHERE Topic_ID__c = '%s' ORDER BY Netvalue__c DESC" %ID
     postODict = sf.query(postQuery)
     
     postsList = postODict['records']
@@ -86,17 +77,13 @@ def create_topic():
 @app.route('/agora/api/v1.0/newpost', methods=['POST'])
 def create_post():
     
-    #return jsonify(request.json)
-    
     if not request.json:
         abort(400)
         
     topic_id = request.json['Topic_ID__c'] #    'a00o0000003kzhR' # the long way 
-    #post_id = ''
     user_id = request.json['Post_User__c']      #'003o000000BTVrI' #long one
     position = request.json['Position__c']      #'Against'
     body = request.json['Post_Body__c']                  #'test from local host'
-    #name = topic_id + ' (arbitrary)'
     """
     
     topic_id = 'a00o0000003kzhR'
@@ -119,7 +106,6 @@ def upvote_post():
     long_id = request.json['long ID']
     query = "SELECT UpVote__c, DownVote__c FROM Post__c WHERE Post_ID__c = '%s'" %short_id
     oDict = sf.query(query)
-    #return jsonify(oDict)
     upvote = int(oDict['records'][0]['UpVote__c'])
     return str(sf.Post__c.update(long_id,{'UpVote__c': upvote+1}))
     
