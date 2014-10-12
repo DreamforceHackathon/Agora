@@ -33,14 +33,14 @@
                 <div class="panel panel-default post" ng-repeat="post in posts | filter: {Position__c: 'For'}">
                   <div class="panel-heading">
                     <p class="panel-title">
-                      {{post.Post_User__c}} <span class="vote-buttons"><a href="" class="upvote"><i class="fa fa-chevron-up"></i></a> 
+                      {{post.Username__c}} <span class="vote-buttons"><a href="" class="upvote"><i class="fa fa-chevron-up"></i></a> 
                       <a href="" class="downvote"><i class="fa fa-chevron-down"></i></a></span>
                     </p>
                     <div class="post-timestamp">{{post.CreatedDate}}</div>
                   </div>
 
                   <div class="panel-body">
-                    {{post.Username__c}}                     
+                    {{post.Post_Body__c}}                     
                   </div>
                 </div>
 
