@@ -46,57 +46,97 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>true</enableActivities>
+    <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>true</enableFeeds>
+    <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
-        <fullName>Category__c</fullName>
+        <fullName>DownVote__c</fullName>
         <externalId>false</externalId>
-        <label>Category</label>
+        <label>DownVote</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Position__c</fullName>
+        <externalId>false</externalId>
+        <label>Position</label>
         <picklist>
             <picklistValues>
-                <fullName>local</fullName>
+                <fullName>For</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>state</fullName>
+                <fullName>Neutral</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>national</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>international</fullName>
+                <fullName>Against</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
-        <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>Topic_Body__c</fullName>
+        <fullName>Post_Body__c</fullName>
         <externalId>false</externalId>
-        <label>Topic Body</label>
+        <label>Post Body</label>
         <length>32768</length>
-        <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>LongTextArea</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>Topic_ID__c</fullName>
-        <displayFormat>T-{0000}</displayFormat>
+        <fullName>Post_ID__c</fullName>
+        <displayFormat>P-{0000}</displayFormat>
         <externalId>false</externalId>
-        <label>Topic ID</label>
+        <label>Post ID</label>
         <trackTrending>false</trackTrending>
         <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Post_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Post Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Topic_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Topic</label>
+        <referenceTo>Topic__c</referenceTo>
+        <relationshipLabel>Posts</relationshipLabel>
+        <relationshipName>Posts</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>UpVote__c</fullName>
+        <externalId>false</externalId>
+        <label>UpVote</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>User__c</fullName>
@@ -104,23 +144,16 @@
         <label>User</label>
         <length>18</length>
         <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    <label>Topic</label>
-    <listViews>
-        <fullName>All</fullName>
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-    </listViews>
+    <label>Post</label>
     <nameField>
-        <label>Topic Name</label>
-        <trackFeedHistory>true</trackFeedHistory>
+        <label>Post Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Topics</pluralLabel>
+    <pluralLabel>Posts</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

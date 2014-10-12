@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>tlim007@ucr.edu</contactEmail>
+    <label>Agora</label>
+    <oauthConfig>
+        <callbackUrl>https://login.salesforce.com/services/oauth2/token</callbackUrl>
+        <consumerKey>3MVG9xOCXq4ID1uHzDUJaB8LxhY3TuCmiDJHrtblRlm0O69H7axRTz48UhHaIK7Tbjizj1FbVT1sWD6P992.I</consumerKey>
+        <scopes>Api</scopes>
+    </oauthConfig>
+</ConnectedApp>

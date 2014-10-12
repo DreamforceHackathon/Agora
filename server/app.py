@@ -9,6 +9,7 @@ Created on Fri Oct 10 18:08:10 2014
 import os
 import requests
 from flask import Flask, jsonify, abort, make_response, request, render_template
+from simple_salesforce import Salesforce
 
 app = Flask(__name__, static_url_path='')
 
@@ -19,8 +20,17 @@ payload = {'grant_type': 'password', 'client_id': '3MVG9xOCXq4ID1uHzDUJaB8LxhY3T
 r = requests.post(REQUEST_ENDPOINT, headers={'Content-Type': 'application/x-www-form-urlencoded'}, data=payload)
 ACCESS_TOKEN = eval(r.content)['access_token']
 
-g = requests.get('https://na17.salesforce.com/services/data/')
-print g.content
+#sf = Salesforce(instance='https://na17.salesforce.com/', session_id=ACCESS_TOKEN)
+sf = Salesforce(username='tlim007@ucr.edu', password='13791LOM', security_token='eYeASGmMyXehAwMmCqqh6ZSk9')
+g = sf.Topic__c.describe()
+#print g[u'fields']
+
+for x in g:
+  if x == "fields":
+      print x
+
+#g = requests.get('https://na17.salesforce.com/services/data/')
+#print g.content
 
 @app.route('/')
 def root():
@@ -29,8 +39,10 @@ def root():
 # returns the categories
 @app.route('/agora/api/v1.0/categories', methods=['GET'])
 def get_category():
+    g = requests.get('https://na17.salesforce.com/services/data/v32.0/sobjects/')
+    print g.content
     #return 'got category'
-    return r
+    #return r
 
 # up to ten most recent topics in category, comes with its ID, name, body, should be in a json, output a json
 @app.route('/apora/api/v1.0/topics/<string:category>', methods=['GET'])
