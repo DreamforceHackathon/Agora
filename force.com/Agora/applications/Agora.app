@@ -5,6 +5,8 @@
     <tab>standard-Chatter</tab>
     <tab>standard-File</tab>
     <tab>Topic__c</tab>
+    <tab>standard-Contact</tab>
     <tab>standard-report</tab>
     <tab>standard-Dashboard</tab>
+    <tab>Post__c</tab>
 </CustomApplication>

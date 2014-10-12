@@ -6,25 +6,38 @@
         <name>CustomApplication</name>
     </types>
     <types>
+        <members>Post__c.DownVote__c</members>
+        <members>Post__c.NetValue__c</members>
+        <members>Post__c.Position__c</members>
+        <members>Post__c.Post_Body__c</members>
+        <members>Post__c.Post_ID__c</members>
+        <members>Post__c.Post_User__c</members>
+        <members>Post__c.Topic_ID__c</members>
+        <members>Post__c.UpVote__c</members>
+        <members>Post__c.Username__c</members>
         <members>Topic__c.Category__c</members>
         <members>Topic__c.Topic_Body__c</members>
         <members>Topic__c.Topic_ID__c</members>
-        <members>Topic__c.User__c</members>
+        <members>Topic__c.Topic_User__c</members>
         <name>CustomField</name>
     </types>
     <types>
+        <members>Post__c</members>
         <members>Topic__c</members>
         <name>CustomObject</name>
     </types>
     <types>
+        <members>Post__c</members>
         <members>Topic__c</members>
         <name>CustomTab</name>
     </types>
     <types>
+        <members>Post__c-Post Layout</members>
         <members>Topic__c-Topic Layout</members>
         <name>Layout</name>
     </types>
     <types>
+        <members>Post__c.All</members>
         <members>Topic__c.All</members>
         <name>ListView</name>
     </types>

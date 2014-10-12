@@ -59,19 +59,19 @@
         <label>Category</label>
         <picklist>
             <picklistValues>
-                <fullName>local</fullName>
+                <fullName>Local</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>state</fullName>
+                <fullName>State</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>national</fullName>
+                <fullName>National</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>international</fullName>
+                <fullName>International</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -99,15 +99,17 @@
         <type>AutoNumber</type>
     </fields>
     <fields>
-        <fullName>User__c</fullName>
+        <fullName>Topic_User__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
-        <label>User</label>
-        <length>18</length>
+        <label>Topic User</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Topics</relationshipLabel>
+        <relationshipName>Topics</relationshipName>
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Lookup</type>
     </fields>
     <label>Topic</label>
     <listViews>
